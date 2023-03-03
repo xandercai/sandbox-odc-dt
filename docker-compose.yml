@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  sandbox:
+    container_name: sandbox
+    build:
+      context: docker
+      args:
+        - WITH_SUDO=yes
+    env_file: .env
+    ports:
+      - "9988:9988"
+    restart: always
+    environment:
+      - AWS_NO_SIGN_REQUEST=true # for DEA download raster data from S3
+      - AWS_DEFAULT_REGION=ap-southeast-2 # for DEA download raster data from S3
+    volumes:
+      - "./workspace:/home/jovyan"
+      - "../datastorage:/home/jovyan/datastorage"
+    depends_on:
+      odc-postgres:
+        condition: service_healthy
+      dt-postgres:
+        condition: service_healthy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

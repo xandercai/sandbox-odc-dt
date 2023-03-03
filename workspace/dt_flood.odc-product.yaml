@@ -1,0 +1,19 @@
+---
+name: dt_flood
+description: Digital Twins Flood
+metadata_type: eo3
+
+license: CC-BY-4.0
+
+metadata:
+  product:
+    name: dt_flood
+
+storage:
+    crs: EPSG:4326
+
+measurements:
+  - name: h
+    dtype: float32
+    nodata: -999
+    units: '1'
